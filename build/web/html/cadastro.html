@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/index.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Meu Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Entrar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Solicitar Acesso</a>
+                </li>
+                </ul>
+                <span class="navbar-text">
+                
+                </span>
+            </div>
+
+            </nav>
+            <div class="container" id="container-login-cadastro">
+                <form id="cadastro-form">
+                    <div class="form-group">
+                        <label for="nome" >Nome</label>
+                        <input type="text" class="form-control" id="nome" aria-describedby="emailHelp">
+                        <small id="cadastro-nome-help" class="text-danger"></small>      
+                    </div>
+                    <div class="form-group">
+                        <label for="email" >Email</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                        <small id="email-help" class="text-danger"></small>  
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf" >CPF</label>
+                        <input type="text" class="form-control" id="cpf" aria-describedby="emailHelp">
+                        <small id="cpf-help" class="text-danger"></small>  
+                    </div>
+                    <div class="form-group">
+                        <label for="senha" >Senha</label>
+                        <input type="password" class="form-control" id="senha">
+                        <small id="senha-help" class="text-danger"></small> 
+                    </div>
+                    <div class="form-group">
+                        <label for="senha-confirmacao" >Confirmação de Senha</label>
+                        <input type="password" class="form-control" id="senha-confirmacao">
+                        <small id="senha-confirmacao-help" class="text-danger"></small>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="mantenha-logado">
+                        <label class="form-check-label" for="mantenha-logado">Mantenha-me Logado</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Solicitar</button>
+                </form>
+            </div>
+            <script src="../js/jquery-3.5.1.min.js"></script>
+            <script src="../bootstrap/js/bootstrap.min.js"></script>
+            <script src="../js/validacao-form.js"></script>
+    </body>
+</html>
