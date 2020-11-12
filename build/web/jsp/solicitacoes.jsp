@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<%@ page import="application.PapelUsuario" %>
+<%@ page import="enums.PapelUsuario" %>
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -52,8 +52,7 @@
               </table>
             </div>
         </c:if>
-        <script src="../js/jquery-3.5.1.min.js"></script>
-        <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <%@include file="includes/scripts.html" %>
         <script src="../js/solicitacoes.js"></script>
     </body>
 </html>

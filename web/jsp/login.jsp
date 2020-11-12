@@ -35,8 +35,7 @@
                 <button type="submit" class="btn btn-primary">Entrar</button>
             </form>
         </div>
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <%@include file="includes/scripts.html" %>
         <script src="js/validacao-form.js"></script>
     </body>
 </html>

@@ -6,8 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<%@ page import="application.Usuario" %>
-<%@ page import="application.PapelUsuario" %>
+<%@ page import="model.Usuario" %>
+<%@ page import="enums.PapelUsuario" %>
 <%@ page import="javax.servlet.http.HttpUtils.*" %>
 
 <c:set var = "usuario" scope = "page" value = "${sessionScope.usuarioLogado}"/>
@@ -39,7 +39,8 @@
               <a class="nav-link" href="/usuario?acao=solicitacoes">Gerenciar Solicitações <span class="sr-only">(current)</span></a>
             </li>
         </c:if> 
-
+       
+            
 
       </ul>
       <span class="navbar-text">
