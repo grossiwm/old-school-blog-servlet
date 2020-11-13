@@ -26,6 +26,7 @@
                     <label for="corpo">Corpo do post</label>
                     <textarea class="form-control" id="corpo" name="conteudo" rows="10" placeholder='Escreva aqui o corpo do seu post...'></textarea>
                 </div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
         </div>
 

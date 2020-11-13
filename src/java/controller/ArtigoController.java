@@ -50,7 +50,11 @@ public class ArtigoController extends HttpServlet {
             case "novo":
                 view = request.getRequestDispatcher("jsp/novoArtigo.jsp");
                 view.forward(request, response);
-        }       
+                break;
+            case "index":
+                
+                
+        }   
         
     }
     
@@ -66,6 +70,7 @@ public class ArtigoController extends HttpServlet {
                     artigo.setTitulo(request.getParameter("titulo"));
                     artigo.setConteudo(request.getParameter("conteudo"));
                     artigoBO.criaArtigo(artigo);
+                    break;
             }
     }
     
