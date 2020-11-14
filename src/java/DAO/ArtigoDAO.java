@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import DTO.ArtigoDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,19 +33,58 @@ public class ArtigoDAO {
         }
     }
     
-    public List<Artigo> findAllByAprovado(char letra) {
+    public ArtigoDTO getArtigoDTOById(int id) {
         
-        List<Artigo> artigos = null;
+        ArtigoDTO artigo = null;
+        
+        try {
+            PreparedStatement pst;
+            String sql = "select distinct a.id as id, a.titulo, a.conteudo, c.descricao as categoria, u.nome as usuario "
+                    + "from artigo a inner join usuario u on u.id = a.id_usuario inner join categoria c on c.id = a.id_categoria"
+                    + " where a.id = ?";
+            pst = conexao.prepareStatement(sql);
+            pst.setInt(1, id);
+            
+            ResultSet rs = pst.executeQuery();
+            artigo = new ArtigoDTO();
+            
+            if (rs.next()) {
+                artigo.setId(rs.getInt("id"));
+                artigo.setAutor(rs.getString("usuario"));
+                artigo.setCategoria(rs.getString("categoria"));
+                artigo.setConteudo(rs.getString("conteudo"));
+                artigo.setTitulo(rs.getString("titulo"));
+            }
+                
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return artigo;
+    }
+    
+    public List<ArtigoDTO> getArtigoDTOsByLiberarAndAprovado(char liberar, char aprovado) {
+        
+        List<ArtigoDTO> artigos = null;
 
         try {
             PreparedStatement pst;
-            String sql = "select a.* from artigo a where aprovado = ?";
+            String sql = "select distinct a.id as id, a.titulo, a.conteudo, c.descricao as categoria, u.nome as usuario from artigo a inner join usuario u on u.id = a.id_usuario inner join categoria c on c.id = a.id_categoria"
+                    + " where aprovado = ? and liberar = ?";
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, String.valueOf(letra));
+            pst.setString(1, String.valueOf(aprovado));
+            pst.setString(2, String.valueOf(liberar));
+
             ResultSet rs = pst.executeQuery();
-            artigos = new ArrayList<Artigo>();
+            artigos = new ArrayList<ArtigoDTO>();
             while (rs.next()) {
-                Artigo artigo = map(rs);
+                ArtigoDTO artigo = new ArtigoDTO();
+                artigo.setId(rs.getInt("id"));
+                artigo.setAutor(rs.getString("usuario"));
+                artigo.setCategoria(rs.getString("categoria"));
+                artigo.setConteudo(rs.getString("conteudo"));
+                artigo.setTitulo(rs.getString("titulo"));
                 artigos.add(artigo);
             } 
         } catch(SQLException e) {
@@ -53,6 +93,7 @@ public class ArtigoDAO {
 
         return artigos;
     }
+    
     
     public List<Artigo> findAllByUsuarioId(int usuarioId) {
         
@@ -125,4 +166,5 @@ public class ArtigoDAO {
         artigo.setAprovado(rs.getString("aprovado").charAt(0));
         return artigo;
     }
+    
 }

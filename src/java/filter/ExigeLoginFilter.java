@@ -42,7 +42,7 @@ public class ExigeLoginFilter implements Filter {
             
             String acao = httpRequest.getParameter("acao");
             
-            if (!acao.equals("index")) {
+            if (!(acao.equals("listar") || acao.equals("mostrar"))) {
                 HttpServletResponse httpResponse = (HttpServletResponse) response; 
                 httpResponse.sendRedirect("/login");
                 return;

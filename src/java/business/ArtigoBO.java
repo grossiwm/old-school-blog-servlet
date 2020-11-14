@@ -6,6 +6,8 @@
 package business;
 
 import DAO.ArtigoDAO;
+import DTO.ArtigoDTO;
+import java.util.List;
 import model.Artigo;
 
 /**
@@ -24,5 +26,11 @@ public class ArtigoBO {
         artigoDAO.save(artigo);
     }
     
+    public List<ArtigoDTO> getArtigosPublicos() {
+        return artigoDAO.getArtigoDTOsByLiberarAndAprovado('S', 'S');
+    }
     
+    public ArtigoDTO getArtigoById(int id) {
+        return artigoDAO.getArtigoDTOById(id);
+    }
 }

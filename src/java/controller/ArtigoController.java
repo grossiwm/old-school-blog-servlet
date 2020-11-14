@@ -6,8 +6,10 @@
 package controller;
 
 import DAO.UsuarioDAO;
+import DTO.ArtigoDTO;
 import business.ArtigoBO;
 import java.io.IOException;
+import java.util.Objects;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,16 +46,27 @@ public class ArtigoController extends HttpServlet {
         RequestDispatcher view = null;
         
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Integer id = null;
         
         switch (acao) {
             case "novo":
                 view = request.getRequestDispatcher("jsp/novoArtigo.jsp");
                 view.forward(request, response);
                 break;
-            case "index":
-                
-                
+            case "listar":
+                request.setAttribute("artigos", artigoBO.getArtigosPublicos());
+                view = request.getRequestDispatcher("jsp/artigos.jsp");
+                view.forward(request, response);
+                break;
+            case "mostrar":  
+                String idParam = (String) request.getParameter("id");
+                if (!Objects.isNull(idParam)) {
+                    int id = (Integer) Integer.valueOf(idParam);
+                    ArtigoDTO artigo = artigoBO.getArtigoById(id);
+                    request.setAttribute("artigo", artigo);
+                    view = request.getRequestDispatcher("jsp/artigo.jsp");
+                    view.forward(request, response);
+                }
+
         }   
         
     }
