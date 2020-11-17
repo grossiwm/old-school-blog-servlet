@@ -17,31 +17,41 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <%@include file="includes/nav.jsp" %>
+        <%@include file="includes/erros.jsp" %> 
         <div class="container" id="container-login-cadastro">
-            <form id="cadastro-form">
+            <form id="cadastro-form" method="post" action="usuario?acao=solicitar">
                 <div class="form-group">
                     <label for="nome" >Nome</label>
-                    <input type="text" class="form-control" id="nome" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp">
                     <small id="cadastro-nome-help" class="text-danger"></small>      
                 </div>
                 <div class="form-group">
                     <label for="email" >Email</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
                     <small id="email-help" class="text-danger"></small>  
                 </div>
                 <div class="form-group">
                     <label for="cpf" >CPF</label>
-                    <input type="text" class="form-control" id="cpf" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" id="cpf" name="cpf" aria-describedby="emailHelp">
                     <small id="cpf-help" class="text-danger"></small>  
                 </div>
+                <div>
+                    <input type="radio" id="ADMINISTRADOR" name="papel" value="ADMINISTRADOR">
+                    <label for="ADMINISTRADOR">Administrador</label><br>
+                    <input type="radio" id="AUTOR" name="papel" value="AUTOR">
+                    <label for="AUTOR">Autor</label><br>
+                    <input type="radio" id="COMENTARISTA" name="papel" value="COMENTARISTA">
+                    <label for="COMENTARISTA">Comentarista</label>
+                </div>
+
                 <div class="form-group">
                     <label for="senha" >Senha</label>
-                    <input type="password" class="form-control" id="senha">
+                    <input type="password" class="form-control" id="senha" name="senha">
                     <small id="senha-help" class="text-danger"></small> 
                 </div>
                 <div class="form-group">
                     <label for="senha-confirmacao" >Confirmação de Senha</label>
-                    <input type="password" class="form-control" id="senha-confirmacao">
+                    <input type="password" class="form-control" id="senha-confirmacao" name="senha-confirmacao">
                     <small id="senha-confirmacao-help" class="text-danger"></small>
                 </div>
                 <div class="form-group form-check">

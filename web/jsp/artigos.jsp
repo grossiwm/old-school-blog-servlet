@@ -17,7 +17,11 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
             <%@include file="includes/nav.jsp" %>
-            <%@include file="includes/nav.jsp" %>
+            <c:if test = "${not empty mensagemSucesso}">
+                <div class="alert alert-success" role="alert">
+                    <c:out value="${mensagemSucesso}"/>
+                </div>
+            </c:if>
             <c:forEach items="${artigos}" var="artigo">
                 <div class="lista-posts">
                     <div class="container container-post">

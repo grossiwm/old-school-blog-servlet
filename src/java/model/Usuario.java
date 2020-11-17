@@ -20,9 +20,11 @@ public class Usuario {
     
     private String nome;
     
-    private int papel;
+    private Integer papel;
     
     private String senha;
+    
+    private String senhaConfirmacao;
 
     private char cadastroAprovado;
     
@@ -92,6 +94,14 @@ public class Usuario {
 
     public void setCadastroAprovado(char cadastroAprovado) {
         this.cadastroAprovado = cadastroAprovado;
+    }
+
+    public String getSenhaConfirmacao() {
+        return senhaConfirmacao;
+    }
+
+    public void setSenhaConfirmacao(String senhaConfirmacao) {
+        this.senhaConfirmacao = senhaConfirmacao;
     }
     
     

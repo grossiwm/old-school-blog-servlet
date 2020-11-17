@@ -21,6 +21,10 @@ public class UsuarioBO {
         usuarioDAO = new UsuarioDAO();
     }
     
+    public void salvaUsuario(Usuario usuario) {
+        usuarioDAO.save(usuario);
+    }
+    
     public List<Usuario> getAllUsuarioAguardandoAceite(){
         return usuarioDAO.findAllByCadastroAprovado('N');
     }

@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import DAO.UsuarioDAO;
 import business.UsuarioBO;
+import java.util.ArrayList;
+import validator.UsuarioValidator;
 
 /**
  *
@@ -51,7 +53,7 @@ public class UsuarioController extends HttpServlet{
         switch (acao) {
             case "solicitar":
                 
-                view = request.getRequestDispatcher("jsp/solicitacao.jsp");
+                view = request.getRequestDispatcher("jsp/solicitar.jsp");
                 view.forward(request, response);
                 break;
             case "solicitacoes":
@@ -90,41 +92,50 @@ public class UsuarioController extends HttpServlet{
         
     }
     
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        
-//        UsuarioDAO usuarioDAO = new UsuarioDAO();
-//        String acao = (String) request.getParameter("acao");
-//        Integer id = null;
-//        
-//        RequestDispatcher view = null;
-//        
-//        switch (acao) {
-//            case "deletar":
-//                id = Integer.parseInt(request.getParameter("id"));
-//                usuarioDAO = new UsuarioDAO();
-//                usuarioDAO.delete(id);
-//                
-//                request.setAttribute("sucesso", "usuario de id " + id + " deletado com sucesso");
-//
-//                view = request.getRequestDispatcher("jsp/solicitacoes.jsp");
-//
-//                view.forward(request, response);
-//                
-//                
-//            case "aceitar":
-//                id = Integer.parseInt(request.getParameter("id"));
-//                Usuario usuario = usuarioDAO.find(id);
-//                usuario.setCadastroAprovado('S');
-//                usuarioDAO.save(usuario); 
-//                
-//                request.setAttribute("sucesso", "usuario de id " + id + " aceito com sucesso");
-//
-//                view = request.getRequestDispatcher("jsp/solicitacoes.jsp");
-//
-//                view.forward(request, response);
-//        }
-//        
-//    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        String acao = (String) request.getParameter("acao");
+        
+        RequestDispatcher view = null;
+        
+        switch (acao) {
+                
+            case "solicitar":
+                String nome = request.getParameter("nome");
+                String email = request.getParameter("email");
+                String cpf = request.getParameter("cpf");
+                String senha = request.getParameter("senha");
+                String senhaConfirmacao = request.getParameter("senha-confirmacao");
+                Integer papel = null;
+                if (!Objects.isNull(request.getParameter("papel")))
+                    papel = PapelUsuario.valueOf(request.getParameter("papel")).getValorInteiro();
+                
+                Usuario usuario = new Usuario();
+                usuario.setNome(nome);
+                usuario.setEmail(email);
+                usuario.setCpf(cpf);
+                usuario.setPapel(papel);
+                usuario.setSenha(senha);
+                usuario.setSenhaConfirmacao(senhaConfirmacao);
+                
+                ArrayList<String> erros = UsuarioValidator.validaCadastro(usuario);
+                 
+                if (erros.size() > 0) {
+                    request.setAttribute("erros", erros);
+                    view = request.getRequestDispatcher("jsp/solicitar.jsp");
+                    view.forward(request, response);
+                } else {
+                    
+                    usuarioBO.salvaUsuario(usuario);
+
+                    response.sendRedirect("artigo?acao=listar&sucesso");
+                    
+                }
+                
+                
+        }
+        
+    }
     
 }

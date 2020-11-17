@@ -53,6 +53,9 @@ public class ArtigoController extends HttpServlet {
                 view.forward(request, response);
                 break;
             case "listar":
+                if (!Objects.isNull(request.getParameter("sucesso"))) {
+                    request.setAttribute("mensagemSucesso", "Sua solicitação de acesso foi efetuada com sucesso, enquanto aguarda vc pode navegar pelo artigos.");
+                }
                 request.setAttribute("artigos", artigoBO.getArtigosPublicos());
                 view = request.getRequestDispatcher("jsp/artigos.jsp");
                 view.forward(request, response);
