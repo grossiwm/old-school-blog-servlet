@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import DAO.UsuarioDAO;
 import business.UsuarioBO;
 import java.util.ArrayList;
 import validator.UsuarioValidator;
@@ -118,6 +117,7 @@ public class UsuarioController extends HttpServlet{
                 usuario.setPapel(papel);
                 usuario.setSenha(senha);
                 usuario.setSenhaConfirmacao(senhaConfirmacao);
+                usuario.setCadastroAprovado('N');
                 
                 ArrayList<String> erros = UsuarioValidator.validaCadastro(usuario);
                  

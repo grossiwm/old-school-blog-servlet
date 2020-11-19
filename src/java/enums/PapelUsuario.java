@@ -16,7 +16,7 @@ public enum PapelUsuario {
     COMENTARISTA;
 
     public int getValorInteiro() {
-        return this.ordinal()-1;
+        return this.ordinal();
     }
     
     public static PapelUsuario getPapelUsuarioFromValorInteiro(int valorInteiro) {

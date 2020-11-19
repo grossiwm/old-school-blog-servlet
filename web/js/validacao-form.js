@@ -1,6 +1,17 @@
 // Wait for the DOM to be ready
 $((
     ()=>{
+        
+        function setPapelPadrao(padrao) {
+            
+            radios = $('input[name=papel]');
+            radios.prop('checked', false);
+            radios.filter(`[value=${padrao}]`).prop('checked', true);
+        }
+        
+        if ($('input[name=papel]').length > 0) {
+            setPapelPadrao('AUTOR');
+        }
 
         const cpfPattern = /^\d{11}$/;
         const emailPattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
@@ -35,6 +46,10 @@ $((
             if (senhaInput.val() !== senhaConfirmacao.val()) {
                 erros['senha-confirmacao'] = 'senha e confirmação de senha não são iguais';
             } 
+            
+            if ($('input[name="papel"]:checked').val() === undefined || $('input[name="papel"]:checked').val() === null || $('input[name="papel"]:checked').val() === '') {
+                erros['papel'] = 'selecione um papel';
+            }
 
             return erros;
             

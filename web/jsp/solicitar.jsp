@@ -43,6 +43,7 @@
                     <input type="radio" id="COMENTARISTA" name="papel" value="COMENTARISTA">
                     <label for="COMENTARISTA">Comentarista</label>
                 </div>
+                <small id="papel-help" class="text-danger"></small> 
 
                 <div class="form-group">
                     <label for="senha" >Senha</label>
@@ -61,8 +62,7 @@
                 <button type="submit" class="btn btn-primary">Solicitar</button>
             </form>
         </div>
-        <script src="js/jquery-3.5.1.min.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <%@include file="includes/scripts.html" %>
         <script src="js/validacao-form.js"></script>
     </body>
 </html>
