@@ -7,6 +7,7 @@ package business;
 
 import DAO.ArtigoDAO;
 import DTO.ArtigoDTO;
+import java.util.ArrayList;
 import java.util.List;
 import model.Artigo;
 
@@ -32,5 +33,9 @@ public class ArtigoBO {
     
     public ArtigoDTO getArtigoById(int id) {
         return artigoDAO.getArtigoDTOById(id);
+    }
+    
+    public List<ArtigoDTO> getArtigoDTOByUsuarioID(int id) {
+        return artigoDAO.getArtigoDTOsByUsuarioID(id);
     }
 }

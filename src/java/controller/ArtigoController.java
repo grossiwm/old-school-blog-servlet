@@ -8,7 +8,9 @@ package controller;
 import DAO.UsuarioDAO;
 import DTO.ArtigoDTO;
 import business.ArtigoBO;
+import business.CategoriaBO;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Artigo;
+import model.Categoria;
 import model.Usuario;
 
 /**
@@ -28,10 +31,12 @@ import model.Usuario;
 public class ArtigoController extends HttpServlet {
     
     private ArtigoBO artigoBO;
+    private CategoriaBO categoriaBO;
     
     @Override
     public void init() throws ServletException {
         artigoBO = new ArtigoBO();
+        categoriaBO = new CategoriaBO();
     }
     
     @Override
@@ -49,9 +54,15 @@ public class ArtigoController extends HttpServlet {
         
         switch (acao) {
             case "novo":
+                
+                List<Categoria> categorias = categoriaBO.getTodasCategorias();
+                
                 view = request.getRequestDispatcher("jsp/novoArtigo.jsp");
+                request.setAttribute("categorias", categorias);
+                request.setAttribute("uid", usuarioLogado.getId());
                 view.forward(request, response);
                 break;
+                
             case "listar":
                 if (!Objects.isNull(request.getParameter("sucesso"))) {
                     request.setAttribute("mensagemSucesso", "Sua solicitação de acesso foi efetuada com sucesso, enquanto aguarda vc pode navegar pelo artigos.");
@@ -69,7 +80,12 @@ public class ArtigoController extends HttpServlet {
                     view = request.getRequestDispatcher("jsp/artigo.jsp");
                     view.forward(request, response);
                 }
-
+                break;
+            case "meusArtigos":
+                request.setAttribute("artigos", artigoBO.getArtigoDTOByUsuarioID(usuarioLogado.getId()));
+                view = request.getRequestDispatcher("jsp/meusArtigos.jsp");
+                view.forward(request, response);
+                break;
         }   
         
     }
@@ -85,6 +101,16 @@ public class ArtigoController extends HttpServlet {
                     Artigo artigo = new Artigo();
                     artigo.setTitulo(request.getParameter("titulo"));
                     artigo.setConteudo(request.getParameter("conteudo"));
+                    artigo.setIdCategoria(Integer.valueOf(request.getParameter("categoria")));
+                    artigo.setIdUsuario(Integer.valueOf(request.getParameter("uid")));
+                    String liberarParam = request.getParameter("liberar");
+                    
+                    if (!Objects.isNull(liberarParam) && liberarParam.equals("on")) {
+                        artigo.setLiberar('S');
+                    } else {
+                        artigo.setLiberar('N');
+                    }
+                    
                     artigoBO.criaArtigo(artigo);
                     break;
             }

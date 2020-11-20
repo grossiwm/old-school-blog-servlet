@@ -11,10 +11,6 @@ package model;
  */
 public class Categoria {
     
-    public Categoria(String descricao) {
-        this.descricao = descricao;
-    }
-    
     private int id;
     
     private String descricao;

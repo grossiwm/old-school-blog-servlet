@@ -20,6 +20,26 @@ public class ArtigoDTO {
     private String autor;
     
     private String categoria;
+    
+    private String liberado;
+    
+    private String aprovado;
+
+    public String getLiberado() {
+        return liberado;
+    }
+
+    public void setLiberado(String liberado) {
+        this.liberado = liberado;
+    }
+
+    public String getAprovado() {
+        return aprovado;
+    }
+
+    public void setAprovado(String aprovado) {
+        this.aprovado = aprovado;
+    }
 
     public String getTitulo() {
         return titulo;

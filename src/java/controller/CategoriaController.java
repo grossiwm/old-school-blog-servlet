@@ -5,12 +5,11 @@
  */
 package controller;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 /**
  *
  * @author gabriel
  */
-public class CategoriaController extends HttpServlet{
-    
-}
+public class CategoriaController extends HttpServlet{}
