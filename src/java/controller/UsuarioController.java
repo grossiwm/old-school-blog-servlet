@@ -57,7 +57,6 @@ public class UsuarioController extends HttpServlet{
                 break;
             case "solicitacoes":
                 
-//                if (!Objects.isNull(usuarioLogado) && usuarioLogado.getPapel() == PapelUsuario.ADMINISTRADOR.getValorInteiro()) {
                 
                     if (!Objects.isNull(request.getParameter("sucesso"))) {
                         request.setAttribute("mensagemSucesso", "Ação executada com sucesso.");
@@ -71,7 +70,6 @@ public class UsuarioController extends HttpServlet{
                     
                     view.forward(request, response);
                     break;
-//                }
                     
             case "deletar":
                 id = Integer.parseInt(request.getParameter("id"));
@@ -87,6 +85,10 @@ public class UsuarioController extends HttpServlet{
                 usuarioBO.aprovaUsuario(id);
                 response.sendRedirect("usuario?acao=solicitacoes&sucesso");
                 break;
+                
+            case "logout":
+                session.invalidate();
+                response.sendRedirect("login");
         }
         
     }

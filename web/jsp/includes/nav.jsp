@@ -14,7 +14,7 @@
 <c:set var = "urlAtual" scope = "page" value = "${requestScope['javax.servlet.forward.request_uri']}"/>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Meu Blog</a>
+    <a class="navbar-brand" href="#">Servlet Blog</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,7 +22,7 @@
       <ul class="navbar-nav mr-auto">
         <c:if test = "${usuario != null}">
             <li class="nav-item">
-              <a class="nav-link" href="posts">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="artigo?acao=meusArtigos"> Gerenciar Meus Artigos <span class="sr-only">(current)</span></a>
             </li>
         </c:if>
         <c:if test = "${usuario == null}">
@@ -39,8 +39,19 @@
               <a class="nav-link" href="/usuario?acao=solicitacoes">Gerenciar Solicitações <span class="sr-only">(current)</span></a>
             </li>
         </c:if> 
-       
-            
+        <c:if test = "${usuario != null && usuario.papel == PapelUsuario.ADMINISTRADOR.getValorInteiro() || usuario.papel == PapelUsuario.AUTOR.getValorInteiro()}">
+            <li class="nav-item">
+              <a class="nav-link" href="/artigo?acao=novo"> Escrever Artigo <span class="sr-only">(current)</span></a>
+            </li>
+        </c:if> 
+        <li class="nav-item">
+            <a class="nav-link" href="/artigo?acao=listar"> Navegar por Artigos <span class="sr-only">(current)</span></a>
+        </li>
+        <c:if test = "${usuario != null}">
+            <li class="nav-item">
+              <a class="nav-link" href="usuario?acao=logout"> Sair <span class="sr-only">(current)</span></a>
+            </li>
+        </c:if>
 
       </ul>
       <span class="navbar-text">

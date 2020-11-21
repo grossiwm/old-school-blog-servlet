@@ -186,6 +186,19 @@ public class ArtigoDAO {
         
     }
     
+    public void setLiberarArtigoById(String liberar, int id) {
+        try {
+            String sql = "update artigo set liberar = ? where id = ?";
+            
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setInt(2, id);
+            pst.setString(1, liberar);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     private Artigo map(ResultSet rs) throws SQLException {
         Artigo artigo = new Artigo();
         artigo.setId(rs.getInt("id"));
@@ -197,5 +210,7 @@ public class ArtigoDAO {
         artigo.setAprovado(rs.getString("aprovado").charAt(0));
         return artigo;
     }
+    
+    
     
 }

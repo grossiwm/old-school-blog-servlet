@@ -5,7 +5,6 @@
  */
 package filter;
 
-import enums.PapelUsuario;
 import java.io.IOException;
 import java.util.Objects;
 import javax.servlet.Filter;
@@ -14,6 +13,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +23,8 @@ import model.Usuario;
  *
  * @author gabriel
  */
-public class ExigeAdminFilter implements Filter {
+@WebFilter(urlPatterns = "/login")
+public class LoginFilter implements Filter {
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
@@ -33,25 +34,22 @@ public class ExigeAdminFilter implements Filter {
             throws ServletException, IOException {
         
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        
         HttpSession session = httpRequest.getSession();
         
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
         if (!Objects.isNull(usuarioLogado)) {
-            
-            PapelUsuario papelUsuario = PapelUsuario.getPapelUsuarioFromValorInteiro(usuarioLogado.getPapel());
-            
-            if (!papelUsuario.equals(PapelUsuario.ADMINISTRADOR)) {
-                HttpServletResponse httpResponse = (HttpServletResponse) response;
-                httpResponse.sendRedirect("/login");
-                return;
-            }
+            httpResponse.sendRedirect("/artigo?acao=listar");
+            return;
         }
-            
-
-        chain.doFilter(request, response);
+        
+        chain.doFilter(request, response);  // invokes next filter in the chain
+ 
     }
     
     @Override
     public void destroy() {}
+ 
 }

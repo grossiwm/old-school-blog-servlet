@@ -25,13 +25,17 @@
             <c:forEach items="${artigos}" var="artigo">
                 <div class="lista-posts">
                     <div class="container container-post">
-                        <p>liberado: ${artigo.liberado == 'S' ? "sim" : "não"}</p>
-                        <p>aprovado: ${artigo.aprovado == 'S' ? "sim" : "não"}</p>
+                        <c:if test = "${artigo.liberado == 'S'}">
+                            <p>Liberado: Sim </p> <a href='artigo?acao=tornarNaoLiberado&id=${artigo.id}' class='btn btn-warning btn-lg active' role='button' aria-pressed='true'>Tornar não liberado</a>
+                        </c:if>
+                        <c:if test = "${artigo.liberado == 'N'}">
+                            <p>Liberado: Não </p> <a href='artigo?acao=liberar&id=${artigo.id}' class='btn btn-warning btn-lg active' role='button' aria-pressed='true'>Liberar</a>
+                        </c:if>
+                        <br><p>aprovado: ${artigo.aprovado == 'S' ? "sim" : "não"}</p>
+                        <h3>Categoria: ${artigo.categoria}</h2>
                         <h2>${artigo.titulo}</h2>
-                        <h3>${artigo.autor}</h2>
-                        <h3>${artigo.categoria}</h2>
                         <p>${artigo.conteudo}</p>
-                        <a href='./artigo?acao=mostrar&id=${artigo.id}'>ver mais</a>
+                        <a href='./artigo?acao=mostrarMeuArtigo&id=${artigo.id}'>ver mais</a>
                     </div>
                 </div>
             </c:forEach>

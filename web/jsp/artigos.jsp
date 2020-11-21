@@ -25,9 +25,9 @@
             <c:forEach items="${artigos}" var="artigo">
                 <div class="lista-posts">
                     <div class="container container-post">
+                        <p>Autor: ${artigo.autor}</p>
+                        <p>Categoria: ${artigo.categoria}</p>
                         <h2>${artigo.titulo}</h2>
-                        <h3>${artigo.autor}</h2>
-                        <h3>${artigo.categoria}</h2>
                         <p>${artigo.conteudo}</p>
                         <a href='./artigo?acao=mostrar&id=${artigo.id}'>ver mais</a>
                     </div>

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-
+<c:set var = "usuario" scope = "page" value = "${sessionScope.usuarioLogado}"/>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -20,19 +20,21 @@
         <%@include file="includes/nav.jsp" %>
 
             <div class="container" id="container-post">
+                <p>Autor: ${artigo.autor}</p>
+                <p>Categoria: ${artigo.categoria}</p>
                 <h2>${artigo.titulo}</h2>
-                <h3>${artigo.autor}</h2>
                 <p>${artigo.conteudo}</p>
             </div>
-
-            <div class="container" id="container-comentar">
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="input-comentar" placeholder="Comente aqui...">
-                    </div>
-                </form>
-            </div>
-
+            
+            <c:if test = "${usuario != null && usuario.papel == PapelUsuario.COMENTARISTA.getValorInteiro()}">
+                <div class="container" id="container-comentar">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="input-comentar" placeholder="Comente aqui...">
+                        </div>
+                    </form>
+                </div>
+            </c:if>
             <div class="container" id="container-comentarios">
             <h3>Comentários</h3>
                 <ul id="lista-comentarios">

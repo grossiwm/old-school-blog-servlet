@@ -23,8 +23,8 @@ import model.Usuario;
  *
  * @author gabriel
  */
-@WebFilter(urlPatterns = "/artigo")
-public class ExigeLoginFilter implements Filter {
+@WebFilter(urlPatterns = "/")
+public class RootFilter implements Filter {
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
@@ -34,25 +34,19 @@ public class ExigeLoginFilter implements Filter {
             throws ServletException, IOException {
         
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        
         HttpSession session = httpRequest.getSession();
         
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
-        if (Objects.isNull(usuarioLogado)) {
-            
-            String acao = httpRequest.getParameter("acao");
-            
-            if (!(acao.equals("listar") || acao.equals("mostrar"))) {
-                HttpServletResponse httpResponse = (HttpServletResponse) response; 
-                httpResponse.sendRedirect("/login");
-                return;
-            }
-            
-
+        if (!Objects.isNull(usuarioLogado)) {
+            httpResponse.sendRedirect("/artigo?acao=listar");
+            return;
+        } else {
+            httpResponse.sendRedirect("/login");
+            return;
         }
-        
-        chain.doFilter(request, response);  // invokes next filter in the chain
- 
     }
     
     @Override

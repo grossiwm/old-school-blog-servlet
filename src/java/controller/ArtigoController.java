@@ -52,6 +52,12 @@ public class ArtigoController extends HttpServlet {
         
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         
+        String idParam = null;
+        
+        ArtigoDTO artigoDTO = null;
+        
+        Artigo artigo = null;
+        
         switch (acao) {
             case "novo":
                 
@@ -72,19 +78,40 @@ public class ArtigoController extends HttpServlet {
                 view.forward(request, response);
                 break;
             case "mostrar":  
-                String idParam = (String) request.getParameter("id");
+                idParam = (String) request.getParameter("id");
                 if (!Objects.isNull(idParam)) {
                     int id = (Integer) Integer.valueOf(idParam);
-                    ArtigoDTO artigo = artigoBO.getArtigoById(id);
-                    request.setAttribute("artigo", artigo);
+                    artigoDTO = artigoBO.getArtigoById(id);
+                    request.setAttribute("artigo", artigoDTO);
                     view = request.getRequestDispatcher("jsp/artigo.jsp");
                     view.forward(request, response);
                 }
                 break;
             case "meusArtigos":
+                String mensagemSucesso = null;
+                if (!Objects.isNull(request.getParameter("sucesso"))) {
+                    mensagemSucesso = "Ação efetuada com sucesso.";
+                    request.setAttribute("mensagemSucesso", mensagemSucesso);
+                }
                 request.setAttribute("artigos", artigoBO.getArtigoDTOByUsuarioID(usuarioLogado.getId()));
                 view = request.getRequestDispatcher("jsp/meusArtigos.jsp");
                 view.forward(request, response);
+                break;
+            case "liberar":
+                idParam = (String) request.getParameter("id");
+                if (!Objects.isNull(idParam)) {
+                    int id = (Integer) Integer.valueOf(idParam);
+                    artigoBO.liberarArtigo(id);
+                    response.sendRedirect("artigo?acao=meusArtigos&mensagem");
+                }
+                break;
+            case "tornarNaoLiberado":
+                idParam = (String) request.getParameter("id");
+                if (!Objects.isNull(idParam)) {
+                    int id = (Integer) Integer.valueOf(idParam);
+                    artigoBO.liberarArtigo(id);
+                    response.sendRedirect("artigo?acao=meusArtigos&sucesso");
+                }
                 break;
         }   
         
@@ -112,6 +139,7 @@ public class ArtigoController extends HttpServlet {
                     }
                     
                     artigoBO.criaArtigo(artigo);
+                    response.sendRedirect("artigo?acao=meusArtigos&sucesso");
                     break;
             }
     }

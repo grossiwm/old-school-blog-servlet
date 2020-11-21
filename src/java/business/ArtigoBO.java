@@ -38,4 +38,12 @@ public class ArtigoBO {
     public List<ArtigoDTO> getArtigoDTOByUsuarioID(int id) {
         return artigoDAO.getArtigoDTOsByUsuarioID(id);
     }
+    
+    public void liberarArtigo(int id) {
+        artigoDAO.setLiberarArtigoById("S", id);
+    }
+    
+    public void tornarArtigoNaoLiberado(int id) {
+        artigoDAO.setLiberarArtigoById("N", id);
+    }
 }
