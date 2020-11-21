@@ -45,7 +45,7 @@ public class ArtigoFilter implements Filter {
             
             if (!(acao.equals("listar") || acao.equals("mostrar"))) {
                 HttpServletResponse httpResponse = (HttpServletResponse) response; 
-                httpResponse.sendRedirect("/login");
+                httpResponse.sendRedirect("login");
                 return;
             }
 
@@ -55,7 +55,7 @@ public class ArtigoFilter implements Filter {
                 
                 if (!( usuarioLogado.getPapel() == PapelUsuario.AUTOR.getValorInteiro() || usuarioLogado.getPapel() == PapelUsuario.ADMINISTRADOR.getValorInteiro() )) {
                     HttpServletResponse httpResponse = (HttpServletResponse) response; 
-                    httpResponse.sendRedirect("/artigo?acao=listar");
+                    httpResponse.sendRedirect("artigo?acao=listar");
                     return;
                 }
 

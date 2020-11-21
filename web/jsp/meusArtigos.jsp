@@ -35,7 +35,7 @@
                         <h3>Categoria: ${artigo.categoria}</h2>
                         <h2>${artigo.titulo}</h2>
                         <p>${artigo.conteudo}</p>
-                        <a href='./artigo?acao=mostrarMeuArtigo&id=${artigo.id}'>ver mais</a>
+                        <a href='artigo?acao=mostrarMeuArtigo&id=${artigo.id}'>ver mais</a>
                     </div>
                 </div>
             </c:forEach>

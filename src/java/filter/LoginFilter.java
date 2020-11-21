@@ -41,7 +41,7 @@ public class LoginFilter implements Filter {
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
         if (!Objects.isNull(usuarioLogado)) {
-            httpResponse.sendRedirect("/artigo?acao=listar");
+            httpResponse.sendRedirect("artigo?acao=listar");
             return;
         }
         

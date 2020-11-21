@@ -51,7 +51,7 @@ public class UsuarioFilter implements Filter {
                 
                 if (!papelUsuario.equals(PapelUsuario.ADMINISTRADOR)) {
                     HttpServletResponse httpResponse = (HttpServletResponse) response;
-                    httpResponse.sendRedirect("/artigo?acao=listar");
+                    httpResponse.sendRedirect("artigo?acao=listar");
                     return;
                 }
             }
@@ -59,7 +59,7 @@ public class UsuarioFilter implements Filter {
             
             if (!(acao.equals("solicitar") )) {
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
-                httpResponse.sendRedirect("/login");
+                httpResponse.sendRedirect("login");
                 return;
             }
 

@@ -54,7 +54,7 @@ public class LoginController extends HttpServlet{
     private void sucessoHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        response.sendRedirect("usuario?acao=solicitacoes");
+        response.sendRedirect("");
         
     }
     

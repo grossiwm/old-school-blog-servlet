@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import model.Artigo;
 import model.Categoria;
 import model.Usuario;
+import validator.ArtigoValidator;
 
 /**
  *
@@ -109,7 +110,7 @@ public class ArtigoController extends HttpServlet {
                 idParam = (String) request.getParameter("id");
                 if (!Objects.isNull(idParam)) {
                     int id = (Integer) Integer.valueOf(idParam);
-                    artigoBO.liberarArtigo(id);
+                    artigoBO.tornarArtigoNaoLiberado(id);
                     response.sendRedirect("artigo?acao=meusArtigos&sucesso");
                 }
                 break;
@@ -122,13 +123,18 @@ public class ArtigoController extends HttpServlet {
             String acao = (String) request.getParameter("acao");
             HttpSession session = request.getSession();
             Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-            
+            RequestDispatcher view = null;
             switch(acao) {
                 case "criar":
                     Artigo artigo = new Artigo();
                     artigo.setTitulo(request.getParameter("titulo"));
                     artigo.setConteudo(request.getParameter("conteudo"));
-                    artigo.setIdCategoria(Integer.valueOf(request.getParameter("categoria")));
+                    
+                    String idCategoriaParam = request.getParameter("categoria");
+                    
+                    if (!Objects.isNull(idCategoriaParam))
+                        artigo.setIdCategoria(Integer.valueOf(request.getParameter("categoria")));
+                    
                     artigo.setIdUsuario(Integer.valueOf(request.getParameter("uid")));
                     String liberarParam = request.getParameter("liberar");
                     
@@ -138,6 +144,16 @@ public class ArtigoController extends HttpServlet {
                         artigo.setLiberar('N');
                     }
                     
+                    List<String> erros = ArtigoValidator.validaCriarArtigo(artigo);
+                    
+                    if (erros.size() > 0) {
+                        view = request.getRequestDispatcher("jsp/novoArtigo.jsp");
+                        request.setAttribute("erros", erros);
+                        request.setAttribute("uid", usuarioLogado.getId());
+                        List<Categoria> categorias = categoriaBO.getTodasCategorias();
+                        request.setAttribute("categorias", categorias);
+                        view.forward(request, response);
+                    }
                     artigoBO.criaArtigo(artigo);
                     response.sendRedirect("artigo?acao=meusArtigos&sucesso");
                     break;
