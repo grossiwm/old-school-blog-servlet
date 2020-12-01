@@ -59,6 +59,8 @@ public class ArtigoController extends HttpServlet {
         
         Artigo artigo = null;
         
+        String mensagemSucesso = null;
+        
         switch (acao) {
             case "novo":
                 
@@ -89,7 +91,7 @@ public class ArtigoController extends HttpServlet {
                 }
                 break;
             case "meusArtigos":
-                String mensagemSucesso = null;
+                mensagemSucesso = null;
                 if (!Objects.isNull(request.getParameter("sucesso"))) {
                     mensagemSucesso = "Ação efetuada com sucesso.";
                     request.setAttribute("mensagemSucesso", mensagemSucesso);
@@ -114,6 +116,24 @@ public class ArtigoController extends HttpServlet {
                     response.sendRedirect("artigo?acao=meusArtigos&sucesso");
                 }
                 break;
+            case "aprovar":
+                idParam = (String) request.getParameter("id");
+                if (!Objects.isNull(idParam)) {
+                    int id = (Integer) Integer.valueOf(idParam);
+                    artigoBO.aprovarArtigo(id);
+                    response.sendRedirect("artigo?acao=gerenciarArtigos&sucesso");
+                }
+                break;               
+            case "gerenciarArtigos":
+                mensagemSucesso = null;
+                if (!Objects.isNull(request.getParameter("sucesso"))) {
+                    mensagemSucesso = "Ação efetuada com sucesso.";
+                    request.setAttribute("mensagemSucesso", mensagemSucesso);
+                }
+                request.setAttribute("artigos", artigoBO.getArtigoDTOsNaoAprovadosEliberados());
+                view = request.getRequestDispatcher("jsp/gerenciarArtigos.jsp");
+                view.forward(request, response);
+                break;    
         }   
         
     }
@@ -143,6 +163,8 @@ public class ArtigoController extends HttpServlet {
                     } else {
                         artigo.setLiberar('N');
                     }
+                    
+                    artigo.setAprovado('N');
                     
                     List<String> erros = ArtigoValidator.validaCriarArtigo(artigo);
                     

@@ -46,4 +46,13 @@ public class ArtigoBO {
     public void tornarArtigoNaoLiberado(int id) {
         artigoDAO.setLiberarArtigoById("N", id);
     }
+    
+    public void aprovarArtigo(int id) {
+        artigoDAO.setAprovadoArtigoById("S", id);
+    }
+    
+    public List<ArtigoDTO> getArtigoDTOsNaoAprovadosEliberados() {
+        return artigoDAO.getArtigoDTOsByAprovadoAndLiberar('N', 'S');
+    }    
+    
 }

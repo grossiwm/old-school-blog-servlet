@@ -61,6 +61,15 @@ public class ArtigoFilter implements Filter {
 
             }
             
+            if (acao.equals("gerenciarArtigos") || acao.equals("aprovar")) {
+                if (!(usuarioLogado.getPapel() == PapelUsuario.ADMINISTRADOR.getValorInteiro())) {
+                    HttpServletResponse httpResponse = (HttpServletResponse) response; 
+                    httpResponse.sendRedirect("artigo?acao=listar");
+                    return;
+                }
+
+            }
+            
         }
         
         chain.doFilter(request, response);  // invokes next filter in the chain
