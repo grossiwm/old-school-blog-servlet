@@ -53,6 +53,5 @@ public class ArtigoBO {
     
     public List<ArtigoDTO> getArtigoDTOsNaoAprovadosEliberados() {
         return artigoDAO.getArtigoDTOsByAprovadoAndLiberar('N', 'S');
-    }    
-    
+    }
 }

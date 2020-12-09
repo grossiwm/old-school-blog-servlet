@@ -15,15 +15,9 @@ public class Comentario {
     
     private String comentario;
     
-    private int id_artigo;
+    private int idArtigo;
     
-    private int id_usuario;
-
-    public Comentario(String comentario, int id_artigo, int id_usuario) {
-        this.comentario = comentario;
-        this.id_artigo = id_artigo;
-        this.id_usuario = id_usuario;
-    }
+    private int idUsuario;
 
     public int getId() {
         return id;
@@ -41,21 +35,23 @@ public class Comentario {
         this.comentario = comentario;
     }
 
-    public int getId_artigo() {
-        return id_artigo;
+    public int getIdArtigo() {
+        return idArtigo;
     }
 
-    public void setId_artigo(int id_artigo) {
-        this.id_artigo = id_artigo;
+    public void setIdArtigo(int idArtigo) {
+        this.idArtigo = idArtigo;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
+
+
     
     
 }
