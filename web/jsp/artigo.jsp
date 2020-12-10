@@ -33,26 +33,33 @@
                         <input type="text" name="comentario" class="form-control" id="input-comentar" placeholder="Comente aqui...">
                         <input name="artigoId" type="hidden" value="${artigo.id}">
                         <input name="usuarioId" type="hidden" value="${usuario.id}">
-                        <button type="submit" class="btn btn-primary">Primary</button>
+                        <button type="submit" class="btn btn-primary mt-2">comentar</button>
                     </div>
                 </form>
             </div>
         </c:if>
         <div class="container" id="container-comentarios">
-        <h3>Comentários</h3>
+            <h3>Comentários</h3>
             <ul id="lista-comentarios">
-                <li>
-                    <strong>Fulano de Tal:</strong><br/>
-                    <p>lkdsfalkdsafjlkdsfjdflsakjdfsa klsdfjlkdsjlkdf lkdskljdfaslkçjdfsaklçj</p>
-                </li>
-                <li>
-                    <strong>José Longone:</strong><br/>
-                    <p>lkdsfalkdsafjlkdsfjdflsakjdfsa klsdfjlkdsjlkdf lkdskljdfaslkçjdfsaklçj</p>
-                </li>
-                <li>
-                    <strong>Roberval dos Santos:</strong><br/>
-                    <p>lkdsfalkdsafjlkdsfjdflsakjdfsa klsdfjlkdsjlkdf lkdskljdfaslkçjdfsaklçj</p>
-                </li>
+                <c:forEach items="${comentarios}" var="comentario">
+
+                        <li class="container container-comentario">
+                            <strong>${comentario.autor}:</strong><br/>
+                            <p>${comentario.comentario}</p>
+                            <c:if test = "${usuario.id == comentario.autorId || usuario.papel == PapelUsuario.ADMINISTRADOR.getValorInteiro()}">
+                                <button type="button" class="btn btn-danger mb-4" 
+                                        onclick="${'location.href=&#39;comentario?acao=deletar&id='.
+                                                   concat(comentario.id).concat("&artigoId=").
+                                                   concat(artigo.id).concat("&autorId=").
+                                                   concat(comentario.autorId).
+                                                   concat('&#39;;')}"
+                                        >Deletar</button>
+                            </c:if>
+                            
+
+                        </li>
+
+                </c:forEach>
             </ul>
         </div>
 

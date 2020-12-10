@@ -36,12 +36,15 @@ public class ComentarioController extends HttpServlet {
         HttpSession session = request.getSession();
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
-        switch (acao) {
-            case "gerenciarArtigos":
-
-            break;    
-        
+        switch (acao) {   
+            case "deletar":
+                int id = Integer.parseInt(request.getParameter("id"));
+                int artigoId = Integer.parseInt(request.getParameter("artigoId"));
+                comentarioBO.deletarComentario(id);
+                response.sendRedirect("artigo?acao=mostrar&id=" + artigoId);
+            break;
         }
+        
     }
     
     @Override
@@ -55,8 +58,8 @@ public class ComentarioController extends HttpServlet {
                 comentario.setIdArtigo(Integer.valueOf(request.getParameter("artigoId")));
                 comentario.setComentario(request.getParameter("comentario"));
                 comentario.setIdUsuario(Integer.valueOf(request.getParameter("usuarioId")));
-                
                 comentarioBO.criaComentario(comentario);
+                response.sendRedirect("artigo?acao=mostrar&id=" + comentario.getIdArtigo());
             break;
         }
     }   

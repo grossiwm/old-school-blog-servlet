@@ -20,6 +20,18 @@ public class ComentarioDTO {
     public int getId() {
         return id;
     }
+    
+    private int autorId;
+
+    public int getAutorId() {
+        return autorId;
+    }
+
+    public void setAutorId(int autorId) {
+        this.autorId = autorId;
+    }
+    
+    
 
     public String getComentario() {
         return comentario;

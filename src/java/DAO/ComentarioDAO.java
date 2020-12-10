@@ -60,7 +60,7 @@ public class ComentarioDAO {
 
         try {
 
-            String sql = "select c.id, u.nome as autor, c.comentario from comentario c inner join artigo a on a.id = c.id_artigo inner join usuario u on u.id = c.id_usuario where a.id = ?";
+            String sql = "select c.id, u.nome as autor, c.comentario, u.id as autor_id from comentario c inner join artigo a on a.id = c.id_artigo inner join usuario u on u.id = c.id_usuario where a.id = ?";
             PreparedStatement pst = conexao.prepareStatement(sql);
             pst.setInt(1, artigoId);
 
@@ -72,6 +72,7 @@ public class ComentarioDAO {
                 comentario.setId(rs.getInt("id"));
                 comentario.setAutor(rs.getString("autor"));
                 comentario.setComentario(rs.getString("comentario"));
+                comentario.setAutorId(rs.getInt("autor_id"));
                 comentarios.add(comentario);
             }
 
@@ -81,5 +82,16 @@ public class ComentarioDAO {
 
         return comentarios;
     }
+    
+    public void delete(int id) {
+        try {
+            String sql = "delete from comentario where id = ?";
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setInt(1, id);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }    
     
 }

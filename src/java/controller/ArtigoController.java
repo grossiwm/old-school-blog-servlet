@@ -7,8 +7,10 @@ package controller;
 
 import DAO.UsuarioDAO;
 import DTO.ArtigoDTO;
+import DTO.ComentarioDTO;
 import business.ArtigoBO;
 import business.CategoriaBO;
+import business.ComentarioBO;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -33,11 +35,13 @@ public class ArtigoController extends HttpServlet {
     
     private ArtigoBO artigoBO;
     private CategoriaBO categoriaBO;
+    private ComentarioBO comentarioBO;
     
     @Override
     public void init() throws ServletException {
         artigoBO = new ArtigoBO();
         categoriaBO = new CategoriaBO();
+        comentarioBO = new ComentarioBO();
     }
     
     @Override
@@ -86,6 +90,8 @@ public class ArtigoController extends HttpServlet {
                     int id = (Integer) Integer.valueOf(idParam);
                     artigoDTO = artigoBO.getArtigoById(id);
                     request.setAttribute("artigo", artigoDTO);
+                    List<ComentarioDTO> comentarios = comentarioBO.getComentariosPorArtigo(artigoDTO.getId());
+                    request.setAttribute("comentarios", comentarios);
                     view = request.getRequestDispatcher("jsp/artigo.jsp");
                     view.forward(request, response);
                 }

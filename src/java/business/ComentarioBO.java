@@ -31,4 +31,8 @@ public class ComentarioBO {
         comentarioDAO.save(comentario);
     }
     
+    public void deletarComentario(int id) {
+        comentarioDAO.delete(id);
+    }
+    
 }
