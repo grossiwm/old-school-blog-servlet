@@ -103,7 +103,7 @@ public class ArtigoController extends HttpServlet {
                     request.setAttribute("mensagemSucesso", mensagemSucesso);
                 }
                 request.setAttribute("artigos", artigoBO.getArtigoDTOByUsuarioID(usuarioLogado.getId()));
-                view = request.getRequestDispatcher("jsp/meusArtigos.jsp");
+                view = request.getRequestDispatcher("jsp/artigos.jsp");
                 view.forward(request, response);
                 break;
             case "liberar":
@@ -129,7 +129,15 @@ public class ArtigoController extends HttpServlet {
                     artigoBO.aprovarArtigo(id);
                     response.sendRedirect("artigo?acao=gerenciarArtigos&sucesso");
                 }
-                break;               
+                break;
+            case "tornarNaoAprovado":
+                idParam = (String) request.getParameter("id");
+                if (!Objects.isNull(idParam)) {
+                    int id = (Integer) Integer.valueOf(idParam);
+                    artigoBO.tornarArtigoNaoAprovado(id);
+                    response.sendRedirect("artigo?acao=gerenciarArtigos&sucesso");
+                }
+                break;                 
             case "gerenciarArtigos":
                 mensagemSucesso = null;
                 if (!Objects.isNull(request.getParameter("sucesso"))) {
@@ -137,7 +145,7 @@ public class ArtigoController extends HttpServlet {
                     request.setAttribute("mensagemSucesso", mensagemSucesso);
                 }
                 request.setAttribute("artigos", artigoBO.getArtigoDTOsNaoAprovadosEliberados());
-                view = request.getRequestDispatcher("jsp/gerenciarArtigos.jsp");
+                view = request.getRequestDispatcher("jsp/artigos.jsp");
                 view.forward(request, response);
                 break;    
         }   

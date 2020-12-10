@@ -39,7 +39,7 @@
               <a class="nav-link" href="/usuario?acao=solicitacoes">Gerenciar Solicitações <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/usuario?acao=gerenciarArtigos">Gerenciar Artigos <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/artigo?acao=gerenciarArtigos">Gerenciar Artigos <span class="sr-only">(current)</span></a>
             </li>
         </c:if> 
         <c:if test = "${usuario != null && usuario.papel == PapelUsuario.ADMINISTRADOR.getValorInteiro() || usuario.papel == PapelUsuario.AUTOR.getValorInteiro()}">

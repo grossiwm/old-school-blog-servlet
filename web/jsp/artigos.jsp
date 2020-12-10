@@ -1,6 +1,6 @@
 <%-- 
-    Document   : artigos
-    Created on : 14/11/2020, 00:06:02
+    Document   : meusArtigos
+    Created on : 19/11/2020, 20:45:35
     Author     : gabriel
 --%>
 
@@ -25,11 +25,26 @@
             <c:forEach items="${artigos}" var="artigo">
                 <div class="lista-posts">
                     <div class="container container-post">
-                        <p>Autor: ${artigo.autor}</p>
-                        <p>Categoria: ${artigo.categoria}</p>
+                        <c:if test = "${artigo.autorId == usuario.id || usuario.papel == PapelUsuario.ADMINISTRADOR.getValorInteiro()}">
+                            <c:if test = "${artigo.liberado == 'S'}">
+                                <p>Liberado: Sim </p> <a href='artigo?acao=tornarNaoLiberado&id=${artigo.id}' class='btn btn-warning btn-lg active' role='button' aria-pressed='true'>Tornar não liberado</a>
+                            </c:if>
+                            <c:if test = "${artigo.liberado == 'N'}">
+                                <p>Liberado: Não </p> <a href='artigo?acao=liberar&id=${artigo.id}' class='btn btn-warning btn-lg active' role='button' aria-pressed='true'>Liberar</a>
+                            </c:if>
+                            <c:if test = "${usuario.papel == PapelUsuario.ADMINISTRADOR.getValorInteiro()}">
+                                <c:if test = "${artigo.aprovado == 'S'}">
+                                    <p>Aprovado: Sim </p> <a href='artigo?acao=tornarNaoAprovado&id=${artigo.id}' class='btn btn-warning btn-lg active' role='button' aria-pressed='true'>Tornar não aprovado</a>
+                                </c:if>
+                                <c:if test = "${artigo.aprovado == 'N'}">
+                                    <p>Aprovado: Não </p> <a href='artigo?acao=aprovar&id=${artigo.id}' class='btn btn-warning btn-lg active' role='button' aria-pressed='true'>Aprovar</a>
+                                </c:if>                                
+                            </c:if>
+                        </c:if>
+                        <h3>Categoria: ${artigo.categoria}</h3>
                         <h2>${artigo.titulo}</h2>
                         <p>${artigo.conteudo}</p>
-                        <a href='./artigo?acao=mostrar&id=${artigo.id}'>ver mais</a>
+                        <a href='artigo?acao=mostrar&id=${artigo.id}'>ver mais</a>
                     </div>
                 </div>
             </c:forEach>

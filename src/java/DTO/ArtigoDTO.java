@@ -19,12 +19,22 @@ public class ArtigoDTO {
     
     private String autor;
     
+    private int autorId;
+    
     private String categoria;
     
     private String liberado;
     
     private String aprovado;
 
+    public int getAutorId() {
+        return autorId;
+    }
+
+    public void setAutorId(int autorId) {
+        this.autorId = autorId;
+    }
+    
     public String getLiberado() {
         return liberado;
     }
