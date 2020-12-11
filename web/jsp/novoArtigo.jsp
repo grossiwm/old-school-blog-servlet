@@ -26,14 +26,14 @@
                 </div>
                 <div class="form-group">
                     <label for="titulo">Título do post</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder='Escreva aqui o título do seu post...'>
+                    <input type="text" value="${artigo.titulo}" class="form-control" id="titulo" name="titulo" placeholder='Escreva aqui o título do seu post...'>
                 </div>
                 <div>
                     <c:if test = "${not empty categorias}">
                         <label>Categoria</label>
                         <div>
                             <c:forEach items="${categorias}" var="categoria">
-                                <input type="radio" id="${categoria.descricao}" name="categoria" value="${categoria.id}">
+                                <input type="radio" id="${categoria.descricao}" name="categoria" value="${categoria.id}" ${categoria.id == artigo.idCategoria ? "checked" : ""}>
                                 <label for="${categoria.descricao}">${categoria.descricao}</label><br>
                             </c:forEach>
                         </div>
@@ -42,8 +42,9 @@
                 </div>
                 <div class="form-group">
                     <label for="corpo">Corpo do post</label>
-                    <textarea class="form-control" id="corpo" name="conteudo" rows="10" placeholder='Escreva aqui o corpo do seu post...'></textarea>
+                    <textarea class="form-control" value="${artigo.conteudo}" id="corpo" name="conteudo" rows="10" placeholder='Escreva aqui o corpo do seu post...'></textarea>
                 </div>
+                <input type="hidden" name="id" value="${artigo.idUsuario == null ? uid : artigo.idUsuario}">
                 <input type="hidden" name="uid" value="${uid}">
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </form>

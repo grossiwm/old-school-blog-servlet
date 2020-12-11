@@ -45,7 +45,10 @@
                         <h2>${artigo.titulo}</h2>
                         <p>${artigo.conteudo}</p>
                         <a href='artigo?acao=mostrar&id=${artigo.id}'>ver mais</a>
-                        <a href='artigo?acao=editar&id=${artigo.id}'>editar</a>
+                        <c:if test="${usuario.papel == PapelUsuario.ADMINISTRADOR.getValorInteiro() || (usuario.id == artigo.autorId && artigo.aprovado != 'S')}">
+                            <a href='artigo?acao=editarArtigo&id=${artigo.id}'>editar</a>
+                            <a href='artigo?acao=deletar&id=${artigo.id}'>editar</a>
+                        </c:if>
                     </div>
                 </div>
             </c:forEach>

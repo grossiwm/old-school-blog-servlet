@@ -58,4 +58,16 @@ public class ArtigoBO {
     public List<ArtigoDTO> getArtigoDTOsNaoAprovadosEliberados() {
         return artigoDAO.getArtigoDTOsByAprovadoAndLiberar('N', 'S');
     }
+    
+    public List<ArtigoDTO> getTodosArtigosDTO() {
+        return artigoDAO.findAllArtigosDTO();
+    }
+    
+    public Artigo getArtigoParaEdicao(int id) {
+        return artigoDAO.find(id);
+    }
+    
+    public void deletaArtigo(int id) {  
+        artigoDAO.delete(id);
+    }
 }

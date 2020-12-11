@@ -73,14 +73,21 @@ public class ArtigoController extends HttpServlet {
                 view = request.getRequestDispatcher("jsp/novoArtigo.jsp");
                 request.setAttribute("categorias", categorias);
                 request.setAttribute("uid", usuarioLogado.getId());
+                request.setAttribute("artigo", new Artigo());
                 view.forward(request, response);
                 break;
                 
             case "listar":
                 if (!Objects.isNull(request.getParameter("sucesso"))) {
-                    request.setAttribute("mensagemSucesso", "Sua solicitação de acesso foi efetuada com sucesso, enquanto aguarda vc pode navegar pelo artigos.");
+                    request.setAttribute("mensagemSucesso", "Ação efetuada com sucesso.");
                 }
                 request.setAttribute("artigos", artigoBO.getArtigosPublicos());
+                view = request.getRequestDispatcher("jsp/artigos.jsp");
+                view.forward(request, response);
+                break;
+            case "todosArtigos":
+                List<ArtigoDTO> artigos = artigoBO.getTodosArtigosDTO();
+                request.setAttribute("artigos", artigos);
                 view = request.getRequestDispatcher("jsp/artigos.jsp");
                 view.forward(request, response);
                 break;
@@ -95,6 +102,16 @@ public class ArtigoController extends HttpServlet {
                     view = request.getRequestDispatcher("jsp/artigo.jsp");
                     view.forward(request, response);
                 }
+                break;
+            case "editarArtigo":
+                idParam = (String) request.getParameter("id");
+                    if (!Objects.isNull(idParam)) {
+                        int id = (Integer) Integer.valueOf(idParam);
+                        Artigo artigoParaEdicao = artigoBO.getArtigoParaEdicao(id);
+                        request.setAttribute("artigo", artigoParaEdicao);
+                        view = request.getRequestDispatcher("jsp/novoArtigo.jsp");
+                        view.forward(request, response);
+                    }
                 break;
             case "meusArtigos":
                 mensagemSucesso = null;
@@ -147,7 +164,12 @@ public class ArtigoController extends HttpServlet {
                 request.setAttribute("artigos", artigoBO.getArtigoDTOsNaoAprovadosEliberados());
                 view = request.getRequestDispatcher("jsp/artigos.jsp");
                 view.forward(request, response);
-                break;    
+                break; 
+            case "deletar":
+                int id = Integer.valueOf(request.getParameter("id"));
+                artigoBO.deletaArtigo(id);
+                response.sendRedirect("artigo?acao=listar");
+                break;
         }   
         
     }
@@ -160,7 +182,16 @@ public class ArtigoController extends HttpServlet {
             RequestDispatcher view = null;
             switch(acao) {
                 case "criar":
-                    Artigo artigo = new Artigo();
+                    Artigo artigo;
+                            
+                    if (Objects.isNull(request.getParameter("id"))) {
+                         artigo = new Artigo();
+                    } else {
+                        int id = Integer.valueOf(request.getParameter("id"));
+                        artigo = artigoBO.getArtigoParaEdicao(id);
+                    }
+                    
+                    
                     artigo.setTitulo(request.getParameter("titulo"));
                     artigo.setConteudo(request.getParameter("conteudo"));
                     

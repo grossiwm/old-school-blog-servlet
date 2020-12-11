@@ -33,6 +33,26 @@ public class ArtigoDAO {
         }
     }
     
+    public Artigo find(Integer id) {
+        
+        Artigo artigo= null;
+        
+        try {
+            String sql = "select a.* from artigo a where a.id = ?";
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                    artigo = map(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return artigo;
+    }
+    
+    
     public ArtigoDTO getArtigoDTOById(int id) {
         
         ArtigoDTO artigo = null;
@@ -130,6 +150,33 @@ public class ArtigoDAO {
         return artigos;
     }
     
+    public List<ArtigoDTO> findAllArtigosDTO() {
+        
+        List<ArtigoDTO> artigos = null;
+
+        try {
+            PreparedStatement pst;
+            String sql = "select distinct a.id as id, a.titulo, a.conteudo, c.descricao as categoria, u.nome as usuario, a.aprovado, a.liberar as liberado from artigo a inner join usuario u on u.id = a.id_usuario inner join categoria c on c.id = a.id_categoria";
+            pst = conexao.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            artigos = new ArrayList<ArtigoDTO>();
+            while (rs.next()) {
+                ArtigoDTO artigo = new ArtigoDTO();
+                artigo.setId(rs.getInt("id"));
+                artigo.setAutor(rs.getString("usuario"));
+                artigo.setCategoria(rs.getString("categoria"));
+                artigo.setConteudo(rs.getString("conteudo"));
+                artigo.setTitulo(rs.getString("titulo"));
+                artigo.setAprovado(rs.getString("aprovado"));
+                artigo.setLiberado(rs.getString("liberado"));
+                artigos.add(artigo);
+            } 
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return artigos;
+    }
     
     public List<Artigo> findAllByUsuarioId(int usuarioId) {
         

@@ -65,10 +65,7 @@
                     <input type="password" class="form-control" id="senha-confirmacao" name="senha-confirmacao" value = ${usuarioParaEditar.senha}>
                     <small id="senha-confirmacao-help" class="text-danger"></small>
                 </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="mantenha-logado">
-                </div>
-                    <input type="hidden" name="id" value="${usuarioParaEditar.id}">
+                <input type="hidden" name="id" value="${usuarioParaEditar.id}">
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
         </div>

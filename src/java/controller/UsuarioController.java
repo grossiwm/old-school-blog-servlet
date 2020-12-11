@@ -141,8 +141,7 @@ public class UsuarioController extends HttpServlet{
                     usuario = new Usuario();
                 } else {
                     int id = Integer.parseInt(request.getParameter("id"));
-                    usuario = usuarioBO.getUsuarioById(id);
-                    usuario.setId(id); 
+                    usuario = usuarioBO.getUsuarioById(id); 
                 }
                 
                 usuario.setNome(nome);
