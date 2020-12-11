@@ -44,9 +44,13 @@ public class UsuarioController extends HttpServlet{
         
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
+        Usuario usuario = null;
+        
         RequestDispatcher view = null;
         
         Integer id = null;
+        
+        List<Usuario> usuarios = null;
 
         
         switch (acao) {
@@ -62,7 +66,7 @@ public class UsuarioController extends HttpServlet{
                         request.setAttribute("mensagemSucesso", "Ação executada com sucesso.");
                     }
                     
-                    List<Usuario> usuarios = usuarioBO.getAllUsuarioAguardandoAceite();
+                    usuarios = usuarioBO.getAllUsuarioAguardandoAceite();
                     
                     request.setAttribute("usuarios", usuarios);
                     
@@ -79,7 +83,6 @@ public class UsuarioController extends HttpServlet{
                 response.sendRedirect("usuario?acao=solicitacoes&sucesso");
                 break;
                 
-                
             case "aceitar":
                 id = Integer.parseInt(request.getParameter("id"));
                 usuarioBO.aprovaUsuario(id);
@@ -89,6 +92,27 @@ public class UsuarioController extends HttpServlet{
             case "logout":
                 session.invalidate();
                 response.sendRedirect("login");
+                break;
+            case "gerenciarUsuarios":
+                usuarios = usuarioBO.getTodos();
+                request.setAttribute("usuarios", usuarios);
+                
+                view = request.getRequestDispatcher("jsp/usuarios.jsp");
+                view.forward(request, response);
+                break;
+            case "editarUsuario":
+                id = Integer.parseInt(request.getParameter("id"));
+                usuario = usuarioBO.getUsuarioById(id);
+                request.setAttribute("usuarioParaAlterar", usuario);
+                view = request.getRequestDispatcher("jsp/formUsuario.jsp");
+                view.forward(request, response);
+                break;
+            case "novoUsuario":
+                usuario = new Usuario();
+                request.setAttribute("usuarioParaAlterar", usuario);
+                view = request.getRequestDispatcher("jsp/formUsuario.jsp");
+                view.forward(request, response);
+                break;
         }
         
     }
@@ -103,6 +127,7 @@ public class UsuarioController extends HttpServlet{
         switch (acao) {
                 
             case "solicitar":
+                Usuario usuario;
                 String nome = request.getParameter("nome");
                 String email = request.getParameter("email");
                 String cpf = request.getParameter("cpf");
@@ -112,7 +137,14 @@ public class UsuarioController extends HttpServlet{
                 if (!Objects.isNull(request.getParameter("papel")))
                     papel = PapelUsuario.valueOf(request.getParameter("papel")).getValorInteiro();
                 
-                Usuario usuario = new Usuario();
+                if (Objects.isNull(request.getParameter("id")) || request.getParameter("id") == "") {
+                    usuario = new Usuario();
+                } else {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    usuario = usuarioBO.getUsuarioById(id);
+                    usuario.setId(id); 
+                }
+                
                 usuario.setNome(nome);
                 usuario.setEmail(email);
                 usuario.setCpf(cpf);

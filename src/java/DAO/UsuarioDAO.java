@@ -94,8 +94,26 @@ public class UsuarioDAO  {
         return usuarios;
     }    
     
-
     
+    public List<Usuario> findAll() {
+        List<Usuario> usuarios = null;
+
+        try {
+            PreparedStatement pst;
+            String sql = "select u.* from usuario u";
+            pst = conexao.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            usuarios = new ArrayList<Usuario>();
+            while (rs.next()) {
+                Usuario usuario = map(rs);
+                usuarios.add(usuario);
+            } 
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuarios;
+    }
 
     public void save(Usuario entity) {
         try {

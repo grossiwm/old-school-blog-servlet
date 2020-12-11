@@ -45,6 +45,7 @@
                         <h2>${artigo.titulo}</h2>
                         <p>${artigo.conteudo}</p>
                         <a href='artigo?acao=mostrar&id=${artigo.id}'>ver mais</a>
+                        <a href='artigo?acao=editar&id=${artigo.id}'>editar</a>
                     </div>
                 </div>
             </c:forEach>

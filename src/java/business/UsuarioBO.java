@@ -38,4 +38,12 @@ public class UsuarioBO {
         usuario.setCadastroAprovado('S');
         usuarioDAO.save(usuario); 
     }
+    
+    public List<Usuario> getTodos() {
+        return usuarioDAO.findAll();
+    }
+    
+    public Usuario getUsuarioById(int id) {
+        return usuarioDAO.find(id);
+    }
 }
