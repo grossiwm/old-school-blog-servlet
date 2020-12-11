@@ -38,7 +38,7 @@ public class ArtigoDAO {
         Artigo artigo= null;
         
         try {
-            String sql = "select a.* from artigo a where a.id = ?";
+            String sql = "select a.id, a.id_usuario, a.id_categoria, a.titulo, a.conteudo, a.liberar, a.aprovado from artigo a where a.id = ?";
             PreparedStatement pst = conexao.prepareStatement(sql);
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();

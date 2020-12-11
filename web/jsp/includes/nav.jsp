@@ -39,7 +39,13 @@
               <a class="nav-link" href="/usuario?acao=solicitacoes">Gerenciar Solicitações <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/artigo?acao=gerenciarArtigos">Gerenciar Artigos <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/artigo?acao=gerenciarArtigos">Aprovar Artigos <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/artigo?acao=todosArtigos">Gerenciar Artigos <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/usuario?acao=gerenciarUsuarios">Gerenciar Usuarios <span class="sr-only">(current)</span></a>
             </li>
         </c:if> 
         <c:if test = "${usuario != null && usuario.papel == PapelUsuario.ADMINISTRADOR.getValorInteiro() || usuario.papel == PapelUsuario.AUTOR.getValorInteiro()}">
@@ -48,7 +54,7 @@
             </li>
         </c:if> 
         <li class="nav-item">
-            <a class="nav-link" href="/artigo?acao=listar"> Navegar por Artigos <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/artigo?acao=listar"> Artigos Públicos<span class="sr-only">(current)</span></a>
         </li>
         <c:if test = "${usuario != null}">
             <li class="nav-item">
